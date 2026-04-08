@@ -1097,6 +1097,12 @@ export interface BackupOptions {
    * @example ['node_modules', '*.log', '.cache']
    */
   excludes?: string[];
+  /**
+   * Use local R2 binding for backup storage instead of presigned URLs.
+   * Required for local development where presigned URLs and FUSE are unavailable.
+   * When true, the DO resolves BACKUP_BUCKET from its own env as an R2 binding.
+   */
+  localBucket?: boolean;
 }
 
 /**
@@ -1109,6 +1115,8 @@ export interface DirectoryBackup {
   readonly id: string;
   /** Directory to restore into. Must be under `/workspace`, `/home`, `/tmp`, `/var/tmp`, or `/app`. */
   readonly dir: string;
+  /** Whether this backup was created with local R2 binding mode. */
+  readonly localBucket?: boolean;
 }
 
 /**
